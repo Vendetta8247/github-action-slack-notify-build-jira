@@ -1,5 +1,9 @@
 # Slack Notify Build
 
+This is an addition to Vox Media's action for publishing slack notifications.
+JIRA ticket integration was added for ease of use.
+Original action: https://github.com/voxmedia/github-action-slack-notify-build
+
 This action prints your GitHub Action build status to Slack. It takes an opinionated approach by showing attachments for metadata like branch, pull request, and event. This action allows [existing messages to be updated](#updating-an-existing-message) to reduce unwanted noise in your Slack channel. Heavily-inspired by [Post Slack messages](https://github.com/marketplace/actions/post-slack-message).
 
 A [Slack bot token](https://api.slack.com/docs/token-types) is required to use this action, and the associated app must be granted permission to post in the channel, private group or DM you specify.
@@ -7,11 +11,13 @@ A [Slack bot token](https://api.slack.com/docs/token-types) is required to use t
 ## Usage
 
 ```yaml
-uses: voxmedia/github-action-slack-notify-build@v1
+uses: kantelamus/github-action-slack-notify-build-jira@v1
 with:
   channel: app-alerts
   status: STARTED
   color: good
+  projectLink: https://jira.attlassian.net
+  taskName: JIR-6
 env:
   SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
 ```
@@ -38,7 +44,7 @@ Note: You must assign a step `id` to the first Slack notification step in order 
   id: slack # IMPORTANT: reference this step ID value in future Slack steps
   env:
     SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
-  uses: voxmedia/github-action-slack-notify-build@v1
+  uses: kantelamus/github-action-slack-notify-build-jira@v1
   with:
     channel: app-alerts
     status: STARTING
@@ -50,7 +56,7 @@ Note: You must assign a step `id` to the first Slack notification step in order 
   if: success()
   env:
     SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
-  uses: voxmedia/github-action-slack-notify-build@v1
+  uses: kantelamus/github-action-slack-notify-build-jira@v1
   with:
     # Updates existing message from the first step
     message_id: ${{ steps.slack.outputs.message_id }}
@@ -70,7 +76,7 @@ You can use the `success()` and `failure()` conditional checks within your workf
   if: success()
   env:
     SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
-  uses: voxmedia/github-action-slack-notify-build@v1
+  uses: kantelamus/github-action-slack-notify-build-jira@v1
   with:
     channel: app-alerts
     status: SUCCESS
@@ -80,7 +86,7 @@ You can use the `success()` and `failure()` conditional checks within your workf
   if: failure()
   env:
     SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
-  uses: voxmedia/github-action-slack-notify-build@v1
+  uses: kantelamus/github-action-slack-notify-build-jira@v1
   with:
     channel: app-alerts
     status: FAILED

@@ -1,6 +1,6 @@
 const { context } = require('@actions/github');
 
-function buildSlackAttachments({ status, color, github }) {
+function buildSlackAttachments({ status, color, github, taskName, projectLink }) {
   const { payload, ref, workflow, eventName } = github.context;
   const { owner, repo } = context.repo;
   const event = eventName;
@@ -47,6 +47,10 @@ function buildSlackAttachments({ status, color, github }) {
           value: event,
           short: true,
         },
+        {
+          title: 'Ticket',
+          value: `<https://${projectLink}/rest/api/latest/${taskName} | ${taskName.toUpperCase()}>`
+        }
       ],
       footer_icon: 'https://github.githubassets.com/favicon.ico',
       footer: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
