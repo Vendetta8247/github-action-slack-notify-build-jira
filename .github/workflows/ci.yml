@@ -13,7 +13,7 @@ jobs:
       - name: Use Node.js v12.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 16
       - name: Notify slack
         # Don't attempt to send Slack notifications on fork PRs which don't have access to secrets
         if: env.SLACK_BOT_TOKEN
