@@ -1,4 +1,4 @@
-name: 'Slack Notify Build'
+name: 'Slack Notify Build Jira'
 description: 'Report GitHub Actions build status on Slack'
 branding:
   icon: message-square
@@ -17,6 +17,12 @@ inputs:
     description: 'The color of the Slack attachment.'
     required: true
     default: '#cccccc'
+  projectLink:
+    description: 'Link to a JIRA project'
+    required: true
+  taskName:
+    description: 'Task name for output and linking purposes'
+    required: true
   message_id:
     description: 'The ID of the existing Slack message to update.'
     required: false
