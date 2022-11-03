@@ -43,14 +43,14 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink })
         },
         referenceLink,
         {
-          title: 'Event',
-          value: event,
+          title: 'Ticket',
+          value: `<https://${projectLink}/rest/api/latest/${taskName} | ${taskName}>`,
           short: true,
         },
         {
-          title: 'Ticket',
-          value: `<https://${projectLink}/rest/api/latest/${taskName} | ${taskName}>`,
-          short: true
+          title: 'Event',
+          value: event,
+          short: true,
         }
       ],
       footer_icon: 'https://github.githubassets.com/favicon.ico',
