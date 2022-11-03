@@ -1,7 +1,7 @@
 const repository = {
   name: 'github-action-slack-notify-build-jira',
   owner: {
-    login: 'kantelamus',
+    login: 'Vendetta8247',
   },
 };
 
