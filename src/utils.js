@@ -49,7 +49,8 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink })
         },
         {
           title: 'Ticket',
-          value: `<https://${projectLink}/rest/api/latest/${taskName} | ${taskName}>`
+          value: `<https://${projectLink}/rest/api/latest/${taskName} | ${taskName}>`,
+          short: true
         }
       ],
       footer_icon: 'https://github.githubassets.com/favicon.ico',
