@@ -16,7 +16,7 @@ inputs:
   color:
     description: 'The color of the Slack attachment.'
     required: true
-    default: '#cccccc'
+    default: '#cccccd'
   projectLink:
     description: 'Link to a JIRA project'
     required: true
