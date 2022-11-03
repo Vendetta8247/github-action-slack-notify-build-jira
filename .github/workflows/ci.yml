@@ -63,3 +63,5 @@ jobs:
           channel_id: C04953L30UC
           status: SUCCESS
           color: good
+          projectLink: https://githubtesting228.atlassian.net
+          taskName: TIG-1
