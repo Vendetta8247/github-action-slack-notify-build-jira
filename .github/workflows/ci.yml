@@ -22,7 +22,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         uses: ./
         with:
-          channel_id: CB9QT2NNR
+          channel_id: C04953L30UC
           status: STARTED
           color: warning
       - name: Get yarn cache
@@ -58,6 +58,6 @@ jobs:
         uses: ./
         with:
           message_id: ${{ steps.slack.outputs.message_id }}
-          channel_id: CB9QT2NNR
+          channel_id: C04953L30UC
           status: SUCCESS
           color: good
