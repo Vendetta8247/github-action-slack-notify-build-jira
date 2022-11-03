@@ -1071,6 +1071,8 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
     const channel = core.getInput('channel');
     const status = core.getInput('status');
     const color = core.getInput('color');
+    const projectLink = core.getInput('projectLink');
+    const taskName = core.getInput('taskName');
     const messageId = core.getInput('message_id');
     const token = process.env.SLACK_BOT_TOKEN;
     const slack = new WebClient(token);
@@ -1080,7 +1082,7 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
       return;
     }
 
-    const attachments = buildSlackAttachments({ status, color, github });
+    const attachments = buildSlackAttachments({ status, color, github, taskName, projectLink });
     const channelId = core.getInput('channel_id') || (await lookUpChannelId({ slack, channel }));
 
     if (!channelId) {
@@ -10001,7 +10003,7 @@ module.exports = resolveCommand;
 
 const { context } = __webpack_require__(469);
 
-function buildSlackAttachments({ status, color, github }) {
+function buildSlackAttachments({ status, color, github, taskName, projectLink }) {
   const { payload, ref, workflow, eventName } = github.context;
   const { owner, repo } = context.repo;
   const event = eventName;
@@ -10048,6 +10050,10 @@ function buildSlackAttachments({ status, color, github }) {
           value: event,
           short: true,
         },
+        {
+          title: 'Ticket',
+          value: `<https://${projectLink}/rest/api/latest/${taskName} | ${taskName}>`
+        }
       ],
       footer_icon: 'https://github.githubassets.com/favicon.ico',
       footer: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
