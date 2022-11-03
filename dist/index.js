@@ -12479,7 +12479,7 @@ exports.httpErrorFromResponse = httpErrorFromResponse;
 function platformErrorFromResult(result) {
     const error = errorWithCode(new Error(`An API error occurred: ${result.error}`), ErrorCode.PlatformError);
     error.data = result;
-    return error;
+    return error; 
 }
 exports.platformErrorFromResult = platformErrorFromResult;
 /**
