@@ -44,7 +44,7 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink })
         referenceLink,
         {
           title: 'Ticket',
-          value: `<https://${projectLink}/rest/api/latest/${taskName} | ${taskName}>`,
+          value: `<https://${projectLink}/browse/${taskName} | ${taskName}>`,
           short: true,
         },
         {
