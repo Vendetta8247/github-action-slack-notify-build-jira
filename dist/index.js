@@ -10064,7 +10064,7 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink, a
   ];
   console.log('Additional message 1 ' + additionalMessage);
   if(additionalMessage){
-    returnValue.at[0].push({
+    returnValue.at[0].fields.push({
       title: 'Additional message',
       value: additionalMessage,
     })
