@@ -1,6 +1,6 @@
 const { context } = require('@actions/github');
 
-function buildSlackAttachments({ status, color, github, taskName, projectLink }) {
+function buildSlackAttachments({ status, color, github, taskName, projectLink, additionalMessage }) {
   const { payload, ref, workflow, eventName } = github.context;
   const { owner, repo } = context.repo;
   const event = eventName;
@@ -22,42 +22,50 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink })
           short: true,
         };
 
-  return [
-    {
-      color,
-      fields: [
-        {
-          title: 'Repo',
-          value: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
-          short: true,
-        },
-        {
-          title: 'Workflow',
-          value: `<https://github.com/${owner}/${repo}/actions/runs/${runId} | ${workflow}>`,
-          short: true,
-        },
-        {
-          title: 'Status',
-          value: status,
-          short: true,
-        },
-        referenceLink,
-        {
-          title: 'Ticket',
-          value: `<${projectLink}/browse/${taskName} | ${taskName}>`,
-          short: true,
-        },
-        {
-          title: 'Event',
-          value: event,
-          short: true,
+        let returnValue = [
+          {
+            color,
+            fields: [
+              {
+                title: 'Repo',
+                value: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
+                short: true,
+              },
+              {
+                title: 'Workflow',
+                value: `<https://github.com/${owner}/${repo}/actions/runs/${runId} | ${workflow}>`,
+                short: true,
+              },
+              {
+                title: 'Status',
+                value: status,
+                short: true,
+              },
+              referenceLink,
+              {
+                title: 'Ticket',
+                value: `<${projectLink}browse/${taskName} | ${taskName}>`,
+                short: true,
+              },
+              {
+                title: 'Event',
+                value: event,
+                short: true,
+              }
+            ],
+            footer_icon: 'https://github.githubassets.com/favicon.ico',
+            footer: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
+            ts: Math.floor(Date.now() / 1000),
+          },
+        ];
+
+        if(additionalMessage){
+          returnValue.at[0].add({
+            title: 'Additional message',
+            value: additionalMessage,
+          })
         }
-      ],
-      footer_icon: 'https://github.githubassets.com/favicon.ico',
-      footer: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
-      ts: Math.floor(Date.now() / 1000),
-    },
-  ];
+  return returnValue
 }
 
 module.exports.buildSlackAttachments = buildSlackAttachments;

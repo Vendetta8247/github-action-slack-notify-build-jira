@@ -1074,6 +1074,7 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
     const projectLink = core.getInput('projectLink');
     const taskName = core.getInput('taskName');
     const messageId = core.getInput('message_id');
+    const additionalMessage = core.getInput('additional_message');
     const token = process.env.SLACK_BOT_TOKEN;
     const slack = new WebClient(token);
 
@@ -1082,7 +1083,7 @@ const { buildSlackAttachments, formatChannelName } = __webpack_require__(543);
       return;
     }
 
-    const attachments = buildSlackAttachments({ status, color, github, taskName, projectLink });
+    const attachments = buildSlackAttachments({ status, color, github, taskName, projectLink, additionalMessage });
     const channelId = core.getInput('channel_id') || (await lookUpChannelId({ slack, channel }));
 
     if (!channelId) {
@@ -10003,7 +10004,7 @@ module.exports = resolveCommand;
 
 const { context } = __webpack_require__(469);
 
-function buildSlackAttachments({ status, color, github, taskName, projectLink }) {
+function buildSlackAttachments({ status, color, github, taskName, projectLink, additionalMessage }) {
   const { payload, ref, workflow, eventName } = github.context;
   const { owner, repo } = context.repo;
   const event = eventName;
@@ -10024,8 +10025,8 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink })
           value: `<https://github.com/${owner}/${repo}/commit/${sha} | ${branch}>`,
           short: true,
         };
-
-  return [
+  
+  let returnValue = [
     {
       color,
       fields: [
@@ -10052,7 +10053,8 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink })
         },
         {
           title: 'Ticket',
-          value: `<${projectLink}/browse/${taskName} | ${taskName}>`
+          value: `<${projectLink}browse/${taskName} | ${taskName}>`,
+          short: true,
         }
       ],
       footer_icon: 'https://github.githubassets.com/favicon.ico',
@@ -10060,6 +10062,14 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink })
       ts: Math.floor(Date.now() / 1000),
     },
   ];
+  if(additionalMessage){
+    returnValue.at[0].add({
+      title: 'Additional message',
+      value: additionalMessage,
+    })
+  }
+
+  return returnValue;
 }
 
 module.exports.buildSlackAttachments = buildSlackAttachments;
