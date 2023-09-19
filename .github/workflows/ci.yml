@@ -66,3 +66,4 @@ jobs:
           color: good
           projectLink: https://githubtesting228.atlassian.net
           taskName: TIG-1
+          additional_message: 'Testing'
