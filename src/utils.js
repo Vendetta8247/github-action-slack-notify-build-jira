@@ -22,7 +22,7 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink, a
           short: true,
         };
 
-        let returnValue = [
+        var returnValue = [
           {
             color,
             fields: [
