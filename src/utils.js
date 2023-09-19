@@ -56,7 +56,7 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink, a
             footer_icon: 'https://github.githubassets.com/favicon.ico',
             footer: `<https://github.com/${owner}/${repo} | ${owner}/${repo}>`,
             ts: Math.floor(Date.now() / 1000),
-          },
+          }
         ];
         
         if(additionalMessage){
