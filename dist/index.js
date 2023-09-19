@@ -10052,7 +10052,7 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink })
         },
         {
           title: 'Ticket',
-          value: `<https://${projectLink}/browse/${taskName} | ${taskName}>`
+          value: `<${projectLink}/browse/${taskName} | ${taskName}>`
         }
       ],
       footer_icon: 'https://github.githubassets.com/favicon.ico',
