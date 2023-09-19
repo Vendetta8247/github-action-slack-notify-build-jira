@@ -10062,7 +10062,7 @@ function buildSlackAttachments({ status, color, github, taskName, projectLink, a
       ts: Math.floor(Date.now() / 1000),
     },
   ];
-  print('Additional message' + additionalMessage);
+  console.log('Additional message' + additionalMessage);
   if(additionalMessage){
     returnValue.at[0].add({
       title: 'Additional message',
